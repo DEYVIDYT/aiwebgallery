@@ -1,0 +1,423 @@
+<html><head><base href="https://websim.creation.engine/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChromaFusion Studio - Ferramenta Profissional de Chroma Key</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+<style>
+  :root {
+    --primary-color: #4a90e2;
+    --secondary-color: #f5a623;
+    --background-color: #f7f9fc;
+    --card-background: #ffffff;
+    --text-color: #333333;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.8;
+  }
+
+  main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .card {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 1.5rem;
+    flex: 1 1 300px;
+  }
+
+  h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+  }
+
+  .file-input-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+
+  .btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    width: 100%;
+  }
+
+  .btn:hover {
+    background-color: #3a7bc8;
+  }
+
+  input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  #processButton {
+    background-color: var(--secondary-color);
+    margin-top: 1rem;
+  }
+
+  #processButton:hover {
+    background-color: #e09511;
+  }
+
+  #downloadButton {
+    background-color: #27ae60;
+    margin-top: 1rem;
+  }
+
+  #downloadButton:hover {
+    background-color: #219a52;
+  }
+
+  .slider-container {
+    margin-bottom: 1rem;
+  }
+
+  .slider-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  #sensitivityValue, #scaleValue, #xOffsetValue, #yOffsetValue {
+    font-weight: bold;
+  }
+
+  #outputContainer {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    overflow: hidden;
+  }
+
+  #outputCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+  }
+
+  .loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    display: none;
+  }
+
+  .loading::after {
+    content: "";
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 1rem;
+    }
+
+    main {
+      flex-direction: column;
+    }
+
+    .card {
+      flex: 1 1 100%;
+    }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>ChromaFusion Studio</h1>
+      <div class="subtitle">Ferramenta Profissional de Chroma Key</div>
+    </div>
+  </header>
+
+  <div class="container">
+    <main>
+      <div class="card">
+        <h2><i class="fas fa-image"></i> Imagens de Entrada</h2>
+        <div class="file-input-wrapper">
+          <button class="btn"><i class="fas fa-camera"></i> Escolher imagem com fundo verde</button>
+          <input type="file" id="greenScreenInput" accept="image/*">
+        </div>
+        <div class="file-input-wrapper">
+          <button class="btn"><i class="fas fa-image"></i> Escolher imagem de fundo</button>
+          <input type="file" id="backgroundInput" accept="image/*">
+        </div>
+        <button id="processButton" class="btn"><i class="fas fa-magic"></i> Processar Chroma Key</button>
+      </div>
+
+      <div class="card">
+        <h2><i class="fas fa-sliders-h"></i> Controles</h2>
+        <div class="slider-container">
+          <label for="sensitivitySlider">Sensibilidade do Chroma Key:</label>
+          <input type="range" id="sensitivitySlider" min="0" max="255" step="1" value="50">
+          <span id="sensitivityValue">50</span>
+        </div>
+        <div class="slider-container">
+          <label for="scaleSlider">Escala da imagem de fundo:</label>
+          <input type="range" id="scaleSlider" min="0.1" max="2" step="0.1" value="1">
+          <span id="scaleValue">1</span>
+        </div>
+        <div class="slider-container">
+          <label for="xOffsetSlider">Deslocamento horizontal:</label>
+          <input type="range" id="xOffsetSlider" min="-100" max="100" step="1" value="0">
+          <span id="xOffsetValue">0</span>
+        </div>
+        <div class="slider-container">
+          <label for="yOffsetSlider">Deslocamento vertical:</label>
+          <input type="range" id="yOffsetSlider" min="-100" max="100" step="1" value="0">
+          <span id="yOffsetValue">0</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><i class="fas fa-eye"></i> Resultado</h2>
+        <div id="outputContainer">
+          <canvas id="outputCanvas"></canvas>
+        </div>
+        <button id="downloadButton" class="btn" style="display: none;"><i class="fas fa-download"></i> Baixar Imagem</button>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2023 ChromaFusion Studio. Todos os direitos reservados.</p>
+    </footer>
+  </div>
+
+  <div class="loading" id="loadingOverlay"></div>
+
+  <script>
+    const greenScreenInput = document.getElementById('greenScreenInput');
+    const backgroundInput = document.getElementById('backgroundInput');
+    const processButton = document.getElementById('processButton');
+    const outputCanvas = document.getElementById('outputCanvas');
+    const sensitivitySlider = document.getElementById('sensitivitySlider');
+    const sensitivityValue = document.getElementById('sensitivityValue');
+    const scaleSlider = document.getElementById('scaleSlider');
+    const scaleValue = document.getElementById('scaleValue');
+    const xOffsetSlider = document.getElementById('xOffsetSlider');
+    const xOffsetValue = document.getElementById('xOffsetValue');
+    const yOffsetSlider = document.getElementById('yOffsetSlider');
+    const yOffsetValue = document.getElementById('yOffsetValue');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const downloadButton = document.getElementById('downloadButton');
+    const ctx = outputCanvas.getContext('2d');
+
+    let greenScreenImage = null;
+    let backgroundImage = null;
+
+    function loadImage(file) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function processChromaKey(foregroundImageData, backgroundImageData, sensitivity) {
+      const foregroundPixels = foregroundImageData.data;
+      const backgroundPixels = backgroundImageData.data;
+
+      for (let i = 0; i < foregroundPixels.length; i += 4) {
+        const r = foregroundPixels[i];
+        const g = foregroundPixels[i + 1];
+        const b = foregroundPixels[i + 2];
+
+        if (g > r + sensitivity && g > b + sensitivity) {
+          foregroundPixels[i] = backgroundPixels[i];
+          foregroundPixels[i + 1] = backgroundPixels[i + 1];
+          foregroundPixels[i + 2] = backgroundPixels[i + 2];
+        }
+      }
+
+      return foregroundImageData;
+    }
+
+    async function updateChromaKey() {
+      if (greenScreenImage && backgroundImage) {
+        loadingOverlay.style.display = 'flex';
+        
+        const sensitivity = parseInt(sensitivitySlider.value);
+        const scale = parseFloat(scaleSlider.value);
+        const xOffset = parseInt(xOffsetSlider.value);
+        const yOffset = parseInt(yOffsetSlider.value);
+
+        const width = greenScreenImage.width;
+        const height = greenScreenImage.height;
+
+        outputCanvas.width = width;
+        outputCanvas.height = height;
+
+        // Draw scaled and positioned background
+        const scaledWidth = backgroundImage.width * scale;
+        const scaledHeight = backgroundImage.height * scale;
+        const x = (width - scaledWidth) / 2 + xOffset;
+        const y = (height - scaledHeight) / 2 + yOffset;
+
+        ctx.drawImage(backgroundImage, x, y, scaledWidth, scaledHeight);
+        const backgroundImageData = ctx.getImageData(0, 0, width, height);
+
+        ctx.drawImage(greenScreenImage, 0, 0, width, height);
+        const foregroundImageData = ctx.getImageData(0, 0, width, height);
+
+        await new Promise(resolve => {
+          requestAnimationFrame(() => {
+            const resultImageData = processChromaKey(foregroundImageData, backgroundImageData, sensitivity);
+            ctx.putImageData(resultImageData, 0, 0);
+            loadingOverlay.style.display = 'none';
+            downloadButton.style.display = 'block';
+            resolve();
+          });
+        });
+      }
+    }
+
+    greenScreenInput.addEventListener('change', async (e) => {
+      greenScreenImage = await loadImage(e.target.files[0]);
+      if (backgroundImage) updateChromaKey();
+    });
+
+    backgroundInput.addEventListener('change', async (e) => {
+      backgroundImage = await loadImage(e.target.files[0]);
+      if (greenScreenImage) updateChromaKey();
+    });
+
+    sensitivitySlider.addEventListener('input', (e) => {
+      sensitivityValue.textContent = e.target.value;
+      updateChromaKey();
+    });
+
+    scaleSlider.addEventListener('input', (e) => {
+      scaleValue.textContent = e.target.value;
+      updateChromaKey();
+    });
+
+    xOffsetSlider.addEventListener('input', (e) => {
+      xOffsetValue.textContent = e.target.value;
+      updateChromaKey();
+    });
+
+    yOffsetSlider.addEventListener('input', (e) => {
+      yOffsetValue.textContent = e.target.value;
+      updateChromaKey();
+    });
+
+    processButton.addEventListener('click', () => {
+      if (!greenScreenImage || !backgroundImage) {
+        alert('Por favor, selecione ambas as imagens antes de processar.');
+        return;
+      }
+      updateChromaKey();
+    });
+
+    downloadButton.addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.download = 'chromakey_result.png';
+      link.href = outputCanvas.toDataURL();
+      link.click();
+    });
+
+    const fileInputs = document.querySelectorAll('input[type="file"]');
+    fileInputs.forEach(input => {
+      input.addEventListener('change', function(e) {
+        const fileName = e.target.files[0].name;
+        const btn = this.previousElementSibling;
+        btn.innerHTML = `<i class="fas fa-check"></i> ${fileName}`;
+      });
+    });
+  </script>
+</body></html>
