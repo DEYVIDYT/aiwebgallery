@@ -2,7 +2,7 @@
   {
     "title": "ChromaFusion Studio",
     "description": "O ChromaFusion Studio é uma ferramenta online para edição de imagens com Chroma Key. O site permite que os usuários carreguem imagens com fundo verde e uma imagem de fundo, ajustando a sensibilidade e a posição do fundo por meio de controles deslizantes. A visualização do resultado ocorre em tempo real, e os usuários podem baixar a imagem final facilmente. Com um design moderno e funcional, é ideal para criadores de conteúdo e editores de vídeo.",
-    "image": "ai-art-gallery.jpg",
+    "image": "aiwebgallery.jpeg",
     "link": "https://deyvidyt.github.io/aiwebgallery/ChromaFusionStudio.html"
   }
 ]
