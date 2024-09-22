@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <base href="https://aiwebgallery.com/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Web Gallery - Showcasing AI-Generated Websites</title>
   <style>
-    /* Seu CSS permanece aqui */
+    /* Seu estilo CSS permanece aqui */
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
 :root {
@@ -149,47 +148,32 @@ main {
 <body>
   <header>
     <h1>AI Web Gallery</h1>
-    <p>Explore the Future of Web Design: AI-Generated Websites</p>
+    <p>Explore o Futuro do Design Web: Sites Gerados por IA</p>
   </header>
   <main>
     <div class="gallery" id="gallery"></div>
   </main>
   <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      const response = await fetch('aiwebgallery.json');
-      const data = await response.json();
-      const gallery = document.getElementById('gallery');
-
-      data.forEach(site => {
-        const card = document.createElement('div');
-        card.className = 'site-card';
-        card.innerHTML = `
-          <img src="${site.image}" alt="${site.title} screenshot" width="300" height="200">
-          <div class="site-info">
-            <h3>${site.title}</h3>
-            <p>${site.description}</p>
-            <a href="${site.link}" class="btn">Explore</a>
-          </div>
-        `;
-        gallery.appendChild(card);
-      });
-
-      const cards = document.querySelectorAll('.site-card');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = 1;
-            entry.target.style.transform = 'translateY(0)';
-          }
-        });
-      }, { threshold: 0.1 });
-
-      cards.forEach(card => {
-        card.style.opacity = 0;
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        observer.observe(card);
-      });
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('https://deyvidyt.github.io/aiwebgallery/aiwebgallery.json')
+        .then(response => response.json())
+        .then(data => {
+          const gallery = document.getElementById('gallery');
+          data.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'site-card';
+            card.innerHTML = `
+              <img src="${item.image}" alt="${item.title} website screenshot" width="300" height="200">
+              <div class="site-info">
+                <h3>${item.title}</h3>
+                <p>${item.description}</p>
+                <a href="${item.link}" class="btn">Explorar</a>
+              </div>
+            `;
+            gallery.appendChild(card);
+          });
+        })
+        .catch(error => console.error('Erro ao carregar os dados:', error));
     });
   </script>
 </body>
