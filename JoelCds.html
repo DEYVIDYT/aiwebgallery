@@ -1,0 +1,339 @@
+<html><head><base href="https://example.com/"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Joel CDS para Vereador - Vote 264173</title><style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans&display=swap');
+
+  :root {
+    --primary-color: #1a5f7a;
+    --secondary-color: #159895;
+    --accent-color: #ffd700;
+    --text-color: #333;
+    --bg-color: #f5f7fa;
+  }
+
+  body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+  }
+
+  header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    text-align: center;
+    padding: 2em 1em;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: var(--bg-color);
+    transform: skewY(-3deg);
+  }
+
+  main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2em 1em;
+    position: relative;
+    z-index: 1;
+  }
+
+  h1, h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--primary-color);
+  }
+
+  h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.2em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .candidate-number {
+    font-size: 3em;
+    font-weight: bold;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin: 1em 0;
+    padding: 0.5em;
+    border: 3px solid var(--primary-color);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .celebrities {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 2em 0;
+  }
+
+  .celebrity {
+    text-align: center;
+    transition: transform 0.3s ease;
+    margin: 1em;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .celebrity:hover {
+    transform: scale(1.05) rotate(3deg);
+  }
+
+  .celebrity img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    border: 4px solid var(--secondary-color);
+    transition: all 0.3s ease;
+  }
+
+  .celebrity p {
+    margin-top: 1em;
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.2em;
+  }
+
+  .proposals {
+    background: linear-gradient(45deg, #ffffff, #f0f0f0);
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin: 2em 0;
+  }
+
+  .proposals h2 {
+    color: var(--secondary-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 1em;
+    padding-left: 1.5em;
+    position: relative;
+  }
+
+  li::before {
+    content: '✓';
+    color: var(--secondary-color);
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: bold;
+  }
+
+  .video-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2em;
+    margin-top: 2em;
+  }
+
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .video-container:hover {
+    transform: scale(1.03);
+  }
+
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  footer {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    color: white;
+    text-align: center;
+    padding: 1em;
+    margin-top: 2em;
+  }
+
+  @media (max-width: 768px) {
+    .celebrities {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .celebrity {
+      margin-bottom: 2em;
+    }
+
+    .video-gallery {
+      grid-template-columns: 1fr;
+    }
+  }
+</style></head><body>
+  <header>
+    <h1>Joel CDS para Vereador</h1>
+    <p>Inovação, Cultura e Tecnologia para Nossa Cidade</p>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p>Caros cidadãos, eu sou Joel CDS, seu candidato comprometido em trazer uma nova perspectiva para nossa política local. Com o apoio de personalidades únicas e ideias inovadoras, estamos prontos para fazer a diferença!</p>
+    </section>
+
+    <div class="candidate-number" id="voteNumber">
+      Vote 264173
+    </div>
+
+    <section class="celebrities">
+      <div class="celebrity">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTB1OXNeYFd1ph9is6vtAV7dSouUohyEb_m43G2pSxwQ1WqioZ9SVmc_jV2&s=10" alt="Manoel Gomes sorrindo com seu chapéu característico, fundo colorido" width="200" height="200">
+        <p>Manoel Gomes</p>
+      </div>
+      <div class="celebrity">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPJGneIJjtjl6421rFKGfNyikU0fkb-WDcLb26OYG9KM2Rv3zbMfbY1iMg&s=10" alt="Bluezão fazendo uma expressão engraçada, cabelo azul bagunçado" width="200" height="200">
+        <p>Bluezão</p>
+      </div>
+    </section>
+
+    <p>Com o carisma do Manoel Gomes, o famoso cantor de "Caneta Azul", e a irreverência do Bluezão, o polêmico youtuber, estamos trazendo uma nova energia e criatividade para nossa política local!</p>
+
+    <section class="proposals">
+      <h2>Nossas Propostas Inovadoras:</h2>
+      <ul>
+        <li>Criação de um centro cultural Para Culinária invertebrada</li>
+        <li>inauguração de um site porno Com participantes como Joel, Manoel gomes e Bluezao </li>
+        <li>Programa "Terceira Idade Digital" para inclusão tecnológica de idosos</li>
+        <li>Festivais comunitários temáticos para celebrar nossa diversidade</li>
+        <li>Projetos de sustentabilidade urbana com participação cidadã</li>
+      </ul>
+    </section>
+
+    <section class="video-section">
+      <h2>Veja o que Joel CDS já fez pelo nosso país</h2>
+      <p>Confira alguns dos momentos marcantes da trajetória de Joel CDS e seu impacto na política nacional:</p>
+      <div class="video-gallery">
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/QsOAxUIy8nc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/deWSiWLP0eo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/hteE6QdrxtU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <p>Juntos, transformaremos nossa cidade em um lugar mais vibrante, inclusivo e tecnológico. Seu voto é a chave para um futuro promissor. Vamos fazer história!</p>
+  </main>
+
+  <footer>
+    &copy; 2023 Campanha Joel CDS para Vereador | Vote 264173 para um futuro brilhante!
+  </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const voteNumber = document.getElementById('voteNumber');
+  const celebrities = document.querySelectorAll('.celebrity');
+  const videoContainers = document.querySelectorAll('.video-container');
+
+  // Animação do número de votação
+  voteNumber.addEventListener('mouseover', () => {
+    voteNumber.style.transform = 'scale(1.1) rotate(5deg)';
+    voteNumber.style.boxShadow = '0 15px 30px rgba(0,0,0,0.2)';
+  });
+  
+  voteNumber.addEventListener('mouseout', () => {
+    voteNumber.style.transform = 'scale(1) rotate(0deg)';
+    voteNumber.style.boxShadow = 'none';
+  });
+
+  // Animação de entrada para as celebridades
+  celebrities.forEach((celebrity, index) => {
+    setTimeout(() => {
+      celebrity.style.opacity = '1';
+      celebrity.style.transform = 'translateY(0)';
+    }, index * 300);
+  });
+
+  // Efeito de parallax no header
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    const scrollPosition = window.pageYOffset;
+    header.style.backgroundPositionY = -scrollPosition * 0.5 + 'px';
+  });
+
+  // Animação suave ao rolar para as seções
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+
+  // Adicionar efeito de destaque nas propostas
+  const proposals = document.querySelectorAll('.proposals li');
+  proposals.forEach(proposal => {
+    proposal.addEventListener('mouseover', () => {
+      proposal.style.color = '#159895';
+      proposal.style.transform = 'translateX(10px)';
+    });
+    proposal.addEventListener('mouseout', () => {
+      proposal.style.color = '';
+      proposal.style.transform = '';
+    });
+  });
+
+  // Animar a entrada dos vídeos
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  videoContainers.forEach(container => {
+    container.style.opacity = '0';
+    container.style.transform = 'translateY(50px)';
+    container.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(container);
+  });
+});
+</script>
+</body></html>
